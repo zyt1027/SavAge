@@ -1,17 +1,19 @@
 package com.example.savage;
 
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-
-import java.util.regex.Pattern;
+import java.util.Calendar;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -20,21 +22,19 @@ public class StartActivity extends AppCompatActivity {
     EditText password;
     Button logIn;
     Button signUp;
-    private static RequestQueue requestQueue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        requestQueue = Volley.newRequestQueue(getApplicationContext());
-        setContentView(R.layout.activity_main);
-        email=findViewById(R.id.editTEmail);
-        password=findViewById(R.id.editTPassword);
+        setContentView(R.layout.activity_login);
+        email=findViewById(R.id.editEmailLog);
+        password=findViewById(R.id.editPasswordLog);
         logIn=findViewById(R.id.btnLogin);
         signUp=findViewById(R.id.btnNewRegister);
     }
 
 
     protected  void onStart(){
+
         super.onStart();
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,4 +82,11 @@ public class StartActivity extends AppCompatActivity {
         }
         return true;
     }
+
+
+
+
+
 }
+
+
