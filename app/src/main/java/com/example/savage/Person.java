@@ -3,9 +3,19 @@ package com.example.savage;
 public class Person {
 
 
-
     private String name;
     private String numeroTel;
+    private String email;
+
+
+    public Person(){}
+
+    public Person(String nome,String numtel,String email){
+        this.setName(nome);
+        this.setNumeroTel(numtel);
+        this.setEmail(email);
+    }
+
 
     public String getEmail() {
         return email;
@@ -15,7 +25,6 @@ public class Person {
         this.email = email;
     }
 
-    private String email;
 
     public String getName() {
         return name;
@@ -33,11 +42,7 @@ public class Person {
         this.numeroTel = numeroTel;
     }
 
-    public Person(String nome,String numtel,String email){
-        this.setName(nome);
-        this.setNumeroTel(numtel);
-        this.setEmail(email);
-    }
+
 
 
 }

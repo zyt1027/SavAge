@@ -52,7 +52,7 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(StartActivity.this,Registrazione.class);
-                startActivityForResult(i,123);
+                startActivity(i);
             }
         });
 

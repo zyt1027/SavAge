@@ -19,6 +19,12 @@ public class User extends Person {
     private Person parente;
 
 
+
+
+    public User(){
+        super();
+    }
+
     public User(String nome,String numtel,Date dataNasciata,String email,String password){
         super(nome,numtel,email);
         this.setPassword(password);
@@ -116,6 +122,11 @@ public class User extends Person {
 
     public void setDataNascita(Date dataNascita) {
         this.dataNascita = dataNascita;
+    }
+
+
+    public String toString(){
+        return this.getName()+"\t"+this.getDataNascita().toString()+"\t"+this.getUserCode();
     }
 
 
