@@ -8,39 +8,61 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import java.util.Calendar;
 
-public class Registrazione extends AppCompatActivity {
+public class Registrazione extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+
+
+    EditText dataNascita;
+    EditText nomeUtente;
+    EditText emailUtente;
+    RadioGroup sessoUtent;
+    EditText numTelUtente;
+    EditText passwordUtente;
+    EditText passwordRepeat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrazione);
+        dataNascita=findViewById(R.id.editDataNascitaReg);
+        nomeUtente=findViewById(R.id.editNomeReg);
+        emailUtente=findViewById(R.id.editEmailLog);
+        sessoUtent=findViewById(R.id.rdbGroupSessoReg);
+        numTelUtente=findViewById(R.id.editNumTelReg);
+        passwordUtente=findViewById(R.id.editPasswordReg);
+        passwordRepeat=findViewById(R.id.editpasswordRepeatReg);
+
     }
 
-    public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
+
+    protected void onStart(){
+        super.onStart();
+        dataNascita.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar c=Calendar.getInstance();
+                DatePickerDialog datePicker = new DatePickerDialog(Registrazione.this,Registrazione.this,c.get(Calendar.YEAR),
+                        c.get(Calendar.MONTH),c.get(Calendar.DAY_OF_MONTH));
+                datePicker.show();
+
+            }
+        });
+        User u=new User(nomeUtente.getText().toString(),numTelUtente.getText().toString(),dataNascita.getText().toString()
+                ,emailUtente.getText().toString(),passwordUtente.getText().toString());
     }
 
-    public static class DatePickerFragment extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener {
-
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            // Use the current date as the default date in the picker
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
-
-            // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
-        }
-
-        public void onDateSet(DatePicker view, int year, int month, int day) {
-            // Do something with the date chosen by the user
-        }
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        month+=1;
+        String dataN=dayOfMonth+"/"+month+"/"+year;
+        dataNascita.setText(dataN);
     }
+
+
+
 }

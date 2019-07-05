@@ -1,28 +1,36 @@
 package com.example.savage;
 
 import java.util.Date;
-import java.util.Random;
+
 
 public class User extends Person {
-    private static  int code=0;
     private int userCode;
+
+
+
+    private String password;
     private String citta;
     private String numeroCivico;
     private String via;
     private String postCode;
-    private Date giornoNascita;
+    private Date dataNascita;
     private int peso;
     private int altezza;
     private Person parente;
 
 
-    public User(String nome,String numtel,String citta,String numeoCivico,String via,String postCode,Date dataNasciata,int peso,int altezza,String parentName,String parentNumtel ){
-        super(nome,numtel);
-        this.userCode= code+1;
-        Person tmpParente=new Person(parentName,parentNumtel);
+    public User(String nome,String numtel,Date dataNasciata,String email,String password){
+        super(nome,numtel,email);
+        this.setPassword(password);
+        this.setDataNascita(dataNasciata);
+    }
+
+    public User(String nome,String numtel,String email,String password,String citta,String numeoCivico,String via,String postCode,Date dataNasciata,int peso,int altezza,String parentName,String parentNumtel,String parentEmail ){
+
+        this(nome,numtel,dataNasciata,email,password);
+        Person tmpParente=new Person(parentName,parentNumtel,parentEmail);
         this.setAltezza(altezza);
         this.setCitta(citta);
-        this.setGiornoNascita(dataNasciata);
         this.setParente(tmpParente);
         this.setPeso(peso);
         this.setNumeroCivico(numeoCivico);
@@ -69,13 +77,6 @@ public class User extends Person {
         this.postCode = postCode;
     }
 
-    public Date getGiornoNascita() {
-        return giornoNascita;
-    }
-
-    public void setGiornoNascita(Date giornoNascita) {
-        this.giornoNascita = giornoNascita;
-    }
 
     public int getPeso() {
         return peso;
@@ -101,7 +102,21 @@ public class User extends Person {
         this.parente = parente;
     }
 
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Date getDataNascita() {
+        return dataNascita;
+    }
+
+    public void setDataNascita(Date dataNascita) {
+        this.dataNascita = dataNascita;
+    }
 
 
 

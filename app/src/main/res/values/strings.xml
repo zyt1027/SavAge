@@ -13,4 +13,5 @@
     <string name="sesso_femmina">F</string>
     <string name="sesso_maschio">M</string>
     <string name="num_tel_user">N.Telefono</string>
+    <string name="repeat_password">Repeat Password</string>
 </resources>

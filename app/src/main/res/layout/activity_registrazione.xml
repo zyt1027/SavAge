@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".Registrazione" >
 
+
+
+
     <ImageView
         android:id="@+id/imgAvatarReg"
         android:layout_width="wrap_content"
@@ -26,7 +29,7 @@
         android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editEmailReg"
-            android:text="@string/log_email"
+            android:hint="@string/log_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -45,7 +48,7 @@
         android:layout_height="wrap_content">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editNomeReg"
-            android:text="@string/nome_user"
+            android:hint="@string/nome_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -67,14 +70,32 @@
             android:id="@+id/rdbMaschioReg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sesso_maschio"/>
+            android:hint="@string/sesso_maschio"/>
         <RadioButton
             android:id="@+id/rdbFemminaReg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sesso_femmina"/>
+            android:hint="@string/sesso_femmina"/>
     </RadioGroup>
 
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dataNasciataRegLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rdbGroupSessoReg"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editDataNascitaReg"
+            android:hint="Data di nascita"
+            android:layout_margin="4dp"
+            android:inputType="date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -82,11 +103,12 @@
         android:layout_marginRight="4dp"
         android:id="@+id/numTelRegLayout"
         android:layout_width="match_parent"
-        android:layout_below="@id/rdbGroupSessoReg"
+        android:layout_below="@id/dataNasciataRegLayout"
         android:layout_height="wrap_content">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editNumTelReg"
-            android:text="@string/num_tel_user"
+            android:hint="@string/num_tel_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -98,67 +120,55 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
-        android:id="@+id/cittaRegLayout"
+        android:layout_marginTop="10dp"
+        android:id="@+id/passwordRegLayout"
         android:layout_width="match_parent"
         android:layout_below="@id/numTelRegLayout"
         android:layout_height="wrap_content">
+
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editCittaReg"
-            android:text="@string/citta_user"
+            android:id="@+id/editPasswordReg"
+            android:hint="@string/log_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="textPassword"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
 
 
 
-
     <com.google.android.material.textfield.TextInputLayout
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
-        android:id="@+id/ViaRegLayout"
+        android:id="@+id/passwordRepeatRegLayout"
         android:layout_width="match_parent"
-        android:layout_below="@id/cittaRegLayout"
+        android:layout_below="@id/passwordRegLayout"
         android:layout_height="wrap_content">
+
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editViaReg"
-            android:text="@string/via_user"
+            android:id="@+id/editpasswordRepeatReg"
+            android:hint="@string/repeat_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
+            android:inputType="textPassword"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:id="@+id/numeroCivicoRegLayout"
-        android:layout_width="match_parent"
-        android:layout_below="@id/ViaRegLayout"
-        android:layout_height="wrap_content">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editNumeroCivicoReg"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:inputType="text"
-            android:text="@string/numeroC_user" />
 
-    </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.button.MaterialButton
-        android:onClick="showDatePickerDialog"
+
         android:id="@+id/btnNewRegisterReg"
         android:layout_width="157dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/numeroCivicoRegLayout"
+        android:layout_below="@id/passwordRepeatRegLayout"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="50dp"
         android:layout_centerHorizontal="true"
-        android:text="@string/registra_nuovo" />
+        android:hint="@string/registra_nuovo" />
 
 </RelativeLayout>
