@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">SavAge</string>
+    <string name="log_email">Email</string>
+    <string name="log_password">Password</string>
+    <string name="login">Login</string>
+    <string name="registra_nuovo">Registra Nuovo</string>
+    <string name="non_hai_account">Non hai account</string>
+    <string name="avatar_image">Avatar image</string>
+    <string name="nome_user">Nome</string>
+    <string name="citta_user">Citta</string>
+    <string name="via_user">Via</string>
+    <string name="numeroC_user">N Civico</string>
+    <string name="sesso_femmina">F</string>
+    <string name="sesso_maschio">M</string>
+    <string name="num_tel_user">N.Telefono</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#E0E0E0</color>
+    <color name="colorPrimaryDark">#58BE26</color> <!-- color status bar -->
+    <color name="colorAccent">#45F873</color> <!-- color top app bar-->
+    <color name="toolbarIconColor">#FFFFFF</color>
+    <color name="loginPageBackgroundColor">#FFFFFF</color>
+    <color name="textInputOutlineColor">#A4EC66</color>
+    <color name="textColorPrimary">#442C2E</color>
+</resources>
