@@ -3,6 +3,7 @@ package com.example.savage;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -22,19 +23,27 @@ public class DatabaseUserHelper extends SQLiteOpenHelper {
     //String nome,String numtel,Date dataNasciata,String email,password
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String sql="CREATE TABLE User(userCode varchar(100) primary key UNIQUE,nome varchar(64),numtel varchar(12),dataNascita date, email varchar(64) UNIQUE,password varchar(64))";
+        String sql="CREATE TABLE User(userCode varchar(10) primary key UNIQUE, nome varchar(64),numtel varchar(12),dataNascita text, email varchar(64) UNIQUE,password varchar(64))";
         db.execSQL(sql);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+            if(oldVersion==1 && newVersion==2){
+                db.execSQL("DROP TABLE IF EXISTS User");
+                onCreate(db);
+                Log.d("upgrade","Upgrade versione to"+newVersion);
+
+            }
+
     }
 
 
     public  static  SQLiteDatabase  createDBUser(char flag,Context c,int version){
 
-        DatabaseUserHelper dbHelper=new DatabaseUserHelper(c,"User_DB",version);
+        Log.d("version",String.valueOf(version));
+        DatabaseUserHelper dbHelper=new DatabaseUserHelper(c,"User_table",version);
         // db sia per lettura e scrittura
         SQLiteDatabase db=null;
         if(flag=='w'){

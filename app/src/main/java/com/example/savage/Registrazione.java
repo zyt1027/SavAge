@@ -88,6 +88,7 @@ public class Registrazione extends AppCompatActivity implements DatePickerDialog
                             d, emailUtente.getText().toString(), passwordUtente.getText().toString());
 
                     boolean error = false;
+
                     try {
                         insertDbNewUser(u, DatabaseUserHelper.createDBUser('w', Registrazione.this, 1));
 
@@ -153,8 +154,11 @@ public class Registrazione extends AppCompatActivity implements DatePickerDialog
 
     public void insertDbNewUser(User u,SQLiteDatabase dbUser){
 
+
+
         //String nome,String numtel,Date dataNasciata,String email,password
-        String sql="Insert into User(userCode ,nome,numtel,dataNascita, email, password) VALUES ("+u.getUserCode()+","+u.getName()+","+u.getNumeroTel()+","+u.getDataNascita()+","+u.getEmail()+","+u.getPassword()+")";
+
+        String sql="Insert into User(userCode,nome,numtel,dataNascita, email, password) VALUES ('"+u.getUserCode()+"','"+u.getName()+"',"+u.getNumeroTel()+","+u.getDataNascita().getTime()+",'"+u.getEmail()+"','"+u.getPassword()+"')";
 
         /*ContentValues val=new ContentValues();
         val.put("userCode",u.getUserCode());

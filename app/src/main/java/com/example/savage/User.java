@@ -30,7 +30,7 @@ public class User extends Person implements Parcelable {
 
     public User(String nome,String numtel,Date dataNasciata,String email,String password){
         super(nome,numtel,email);
-        this.userCode= UUID.randomUUID().toString();
+        this.userCode= UUID.randomUUID().toString().substring(0,8);
         this.setPassword(password);
         this.setDataNascita(dataNasciata);
     }

@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +30,7 @@ public class StartActivity extends AppCompatActivity {
     Button logIn;
     Button signUp;
     User u;
+    Button cancel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +39,7 @@ public class StartActivity extends AppCompatActivity {
         password=findViewById(R.id.editPasswordLog);
         logIn=findViewById(R.id.btnLogin);
         signUp=findViewById(R.id.btnNewRegister);
+
     }
 
 
@@ -48,24 +51,39 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(UtilFunction.inputControll(email.getText().toString(),password.getText().toString(),StartActivity.this)){
-                    SQLiteDatabase db=DatabaseUserHelper.createDBUser('w',StartActivity.this,'1');
-                    Cursor c=db.rawQuery("SELECT * FROM User WHERE email= ?",new String[]{u.getEmail()});
-                    if(c.getCount()!=0){
-                        String id=c.getString(c.getColumnIndex("userCode"));
-                        Toast.makeText(StartActivity.this,id,Toast.LENGTH_LONG);
+                    SQLiteDatabase db=DatabaseUserHelper.createDBUser('w',StartActivity.this,1);
+                    Cursor c=db.rawQuery("SELECT * FROM User WHERE email= ?",new String[]{email.getText().toString()});
+                    while(c.moveToNext()){
+                        if(c.getString(c.getColumnIndex("password"))==password.getText().toString()) {
+                            String id = c.getString(c.getColumnIndex("userCode"));
+                            Toast.makeText(StartActivity.this, id, Toast.LENGTH_LONG);
+                            db.close();
+                        }else{
+                           new AlertDialog.Builder(StartActivity.this)
+                                   .setPositiveButton("Ok",null)
+                                   .setMessage("Errore password non correto")
+                                   .create()
+                                   .show();
+                        }
+
                     }
+
+
                 }
 
             }
         });
 
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=new Intent(StartActivity.this,Registrazione.class);
-                startActivityForResult(i,123);
-            }
+        signUp.setOnClickListener(v -> {
+            Intent i=new Intent(StartActivity.this,Registrazione.class);
+            startActivityForResult(i,123);
         });
+
+        /*
+        cancel.setOnClickListener((v)->{
+            SQLiteDatabase db=DatabaseUserHelper.createDBUser('w',StartActivity.this,1);
+            db.setVersion(1);
+        });*/
 
     }
 

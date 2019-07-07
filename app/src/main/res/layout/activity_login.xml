@@ -72,6 +72,17 @@
         android:text="@string/login" />
 
 
+
+   <!-- <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNewVersion"
+        android:layout_width="161dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/cancelled" />
+         -->
+
     <Button
         android:id="@+id/btnNewRegister"
         android:layout_width="157dp"
