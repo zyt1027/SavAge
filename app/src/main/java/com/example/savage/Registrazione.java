@@ -74,53 +74,53 @@ public class Registrazione extends AppCompatActivity implements DatePickerDialog
             @Override
             public void onClick(View v) {
 
-                Date d=new Date();
+                Date d = new Date();
                 try {
-                    SimpleDateFormat s=new SimpleDateFormat("dd/MM/yyyy");
-                    d= s.parse(dataNascita.getText().toString());
+                    SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+                    d = s.parse(dataNascita.getText().toString());
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
-                final User u=new User(nomeUtente.getText().toString(),numTelUtente.getText().toString(),
-                        d,emailUtente.getText().toString(),passwordUtente.getText().toString());
+                if (UtilFunction.inputControll(emailUtente.getText().toString(), passwordUtente.getText().toString(), Registrazione.this)) {
 
-                boolean error=false;
-                try {
-                    insertDbNewUser(u,createDBUser('w'));
+                    final User u = new User(nomeUtente.getText().toString(), numTelUtente.getText().toString(),
+                            d, emailUtente.getText().toString(), passwordUtente.getText().toString());
 
-                }catch (Exception e){
-                    error=true;
-                    new AlertDialog.Builder(Registrazione.this).setMessage(e.getMessage())
-                            .setPositiveButton("OK",null)
-                            .create()
-                            .show();
+                    boolean error = false;
+                    try {
+                        insertDbNewUser(u, DatabaseUserHelper.createDBUser('w', Registrazione.this, 1));
+
+                    } catch (Exception e) {
+                        error = true;
+                        new AlertDialog.Builder(Registrazione.this).setMessage(e.getMessage())
+                                .setPositiveButton("OK", null)
+                                .create()
+                                .show();
+                    }
+
+                    if (!error) {
+                        new AlertDialog.Builder(Registrazione.this).setMessage("Ok utente registrato")
+                                .setPositiveButton("ok nuovo utente: " + u.getUserCode(), new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent i = new Intent();
+                                        Bundle b = new Bundle();
+                                        b.putParcelable("User", u);
+                                        i.putExtras(b);
+                                        setResult(RESULT_OK, i);
+                                        finish();
+
+                                    }
+                                })
+                                .create()
+                                .show();
+                    }
                 }
-
-                if(!error){
-                    new AlertDialog.Builder(Registrazione.this).setMessage("Ok utente registrato")
-                            .setPositiveButton("ok nuovo utente: "+u.getUserCode(), new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent i=new Intent();
-                                    Bundle b=new Bundle();
-                                    b.putParcelable("User",u);
-                                    i.putExtras(b);
-                                    setResult(RESULT_OK,i);
-                                    finish();
-
-                                }
-                            })
-                            .create()
-                            .show();
-                }
-
-
             }
         });
 
     }
-
 
 
 
@@ -151,26 +151,10 @@ public class Registrazione extends AppCompatActivity implements DatePickerDialog
 
 
 
-    public SQLiteDatabase createDBUser(char flag){
-
-        DatabaseUserHelper dbHelper=new DatabaseUserHelper(Registrazione.this,"User_DB",1);
-        // db sia per lettura e scrittura
-        SQLiteDatabase db=null;
-        if(flag=='w'){
-           db=dbHelper.getWritableDatabase();
-        }else if(flag=='r'){
-            db=dbHelper.getReadableDatabase();
-        }
-
-        // db solo per lettura
-        //SQLiteDatabase db=dbHelper.getReadableDatabase();
-
-        return db;
-    }
-
     public void insertDbNewUser(User u,SQLiteDatabase dbUser){
 
-        String sql="Insert into User(userCode , email, password) VALUES ("+u.getUserCode()+","+u.getEmail()+","+u.getPassword()+")";
+        //String nome,String numtel,Date dataNasciata,String email,password
+        String sql="Insert into User(userCode ,nome,numtel,dataNascita, email, password) VALUES ("+u.getUserCode()+","+u.getName()+","+u.getNumeroTel()+","+u.getDataNascita()+","+u.getEmail()+","+u.getPassword()+")";
 
         /*ContentValues val=new ContentValues();
         val.put("userCode",u.getUserCode());

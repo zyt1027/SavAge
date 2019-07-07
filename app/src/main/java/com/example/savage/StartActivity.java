@@ -7,13 +7,17 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -24,6 +28,7 @@ public class StartActivity extends AppCompatActivity {
     EditText password;
     Button logIn;
     Button signUp;
+    User u;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,13 +43,18 @@ public class StartActivity extends AppCompatActivity {
     protected  void onStart(){
 
         super.onStart();
+
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(inputControll(email.getText().toString(),password.getText().toString())){
-
+                if(UtilFunction.inputControll(email.getText().toString(),password.getText().toString(),StartActivity.this)){
+                    SQLiteDatabase db=DatabaseUserHelper.createDBUser('w',StartActivity.this,'1');
+                    Cursor c=db.rawQuery("SELECT * FROM User WHERE email= ?",new String[]{u.getEmail()});
+                    if(c.getCount()!=0){
+                        String id=c.getString(c.getColumnIndex("userCode"));
+                        Toast.makeText(StartActivity.this,id,Toast.LENGTH_LONG);
+                    }
                 }
-
 
             }
         });
@@ -59,41 +69,15 @@ public class StartActivity extends AppCompatActivity {
 
     }
 
-    private boolean inputControll(String email,String password) {
-        if (email.isEmpty() || password.isEmpty()) {
-            new AlertDialog.Builder(this)
-                    .setMessage("Campi non possono essere vuoti")
-                    .setPositiveButton("OK", null)
-                    .create()
-                    .show();
-            return false;
-
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            new AlertDialog.Builder(this)
-                    .setMessage("formato email non supportato")
-                    .setPositiveButton("OK", null)
-                    .create()
-                    .show();
-            return false;
-        }else if( password.length() < 8){
-            new AlertDialog.Builder(this)
-                    .setMessage("password deve essere almeno di 8 caratteri")
-                    .setPositiveButton("OK", null)
-                    .create()
-                    .show();
-            return false;
-        }
-        return true;
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==123){
             if(resultCode==RESULT_OK){
-                User us=data.getExtras().getParcelable("User");
-                this.email.setText(us.getEmail());
-                this.password.setText(us.getPassword());
+                u=data.getExtras().getParcelable("User");
+                this.email.setText(u.getEmail());
+                this.password.setText(u.getPassword());
             }
 
         }
