@@ -1,13 +1,16 @@
 package com.example.savage;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Date;
+import java.util.Random;
+import java.util.UUID;
 
 
-public class User extends Person {
-    private int userCode;
+public class User extends Person implements Parcelable {
 
-
-
+    private String userCode;
     private String password;
     private String citta;
     private String numeroCivico;
@@ -27,6 +30,7 @@ public class User extends Person {
 
     public User(String nome,String numtel,Date dataNasciata,String email,String password){
         super(nome,numtel,email);
+        this.userCode= UUID.randomUUID().toString();
         this.setPassword(password);
         this.setDataNascita(dataNasciata);
     }
@@ -45,8 +49,27 @@ public class User extends Person {
     }
 
 
+    public  User(Parcel parcel){
+        this.userCode=parcel.readString();
+        this.setEmail(parcel.readString());
+        this.setPassword(parcel.readString());
 
-    public int getUserCode() {
+    }
+
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    public String getUserCode() {
         return userCode;
     }
 
@@ -130,9 +153,17 @@ public class User extends Person {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
 
+        dest.writeString(this.userCode);
+        dest.writeString(this.getEmail());
+        dest.writeString(this.getPassword());
 
-
-
+    }
 }

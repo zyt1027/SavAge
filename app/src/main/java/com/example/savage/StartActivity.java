@@ -1,5 +1,6 @@
 package com.example.savage;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -52,7 +53,7 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(StartActivity.this,Registrazione.class);
-                startActivity(i);
+                startActivityForResult(i,123);
             }
         });
 
@@ -85,10 +86,18 @@ public class StartActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==123){
+            if(resultCode==RESULT_OK){
+                User us=data.getExtras().getParcelable("User");
+                this.email.setText(us.getEmail());
+                this.password.setText(us.getPassword());
+            }
 
-
-
-
+        }
+    }
 }
 
 

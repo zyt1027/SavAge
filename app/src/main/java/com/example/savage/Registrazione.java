@@ -3,9 +3,15 @@ package com.example.savage;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +40,7 @@ public class Registrazione extends AppCompatActivity implements DatePickerDialog
     EditText passwordRepeat;
     Button registrationUtente;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +53,7 @@ public class Registrazione extends AppCompatActivity implements DatePickerDialog
         passwordUtente=findViewById(R.id.editPasswordReg);
         passwordRepeat=findViewById(R.id.editpasswordRepeatReg);
         registrationUtente=findViewById(R.id.btnNewRegisterReg);
+
 
     }
 
@@ -74,19 +82,47 @@ public class Registrazione extends AppCompatActivity implements DatePickerDialog
                     e.printStackTrace();
                 }
 
-                User u=new User(nomeUtente.getText().toString(),numTelUtente.getText().toString(),
+                final User u=new User(nomeUtente.getText().toString(),numTelUtente.getText().toString(),
                         d,emailUtente.getText().toString(),passwordUtente.getText().toString());
 
+                boolean error=false;
+                try {
+                    insertDbNewUser(u,createDBUser('w'));
 
+                }catch (Exception e){
+                    error=true;
+                    new AlertDialog.Builder(Registrazione.this).setMessage(e.getMessage())
+                            .setPositiveButton("OK",null)
+                            .create()
+                            .show();
+                }
 
+                if(!error){
+                    new AlertDialog.Builder(Registrazione.this).setMessage("Ok utente registrato")
+                            .setPositiveButton("ok nuovo utente: "+u.getUserCode(), new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent i=new Intent();
+                                    Bundle b=new Bundle();
+                                    b.putParcelable("User",u);
+                                    i.putExtras(b);
+                                    setResult(RESULT_OK,i);
+                                    finish();
 
+                                }
+                            })
+                            .create()
+                            .show();
+                }
 
 
             }
         });
 
-
     }
+
+
+
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -112,6 +148,43 @@ public class Registrazione extends AppCompatActivity implements DatePickerDialog
         String dataN=d+"/"+m+"/"+y;
         dataNascita.setText(dataN);
     }
+
+
+
+    public SQLiteDatabase createDBUser(char flag){
+
+        DatabaseUserHelper dbHelper=new DatabaseUserHelper(Registrazione.this,"User_DB",1);
+        // db sia per lettura e scrittura
+        SQLiteDatabase db=null;
+        if(flag=='w'){
+           db=dbHelper.getWritableDatabase();
+        }else if(flag=='r'){
+            db=dbHelper.getReadableDatabase();
+        }
+
+        // db solo per lettura
+        //SQLiteDatabase db=dbHelper.getReadableDatabase();
+
+        return db;
+    }
+
+    public void insertDbNewUser(User u,SQLiteDatabase dbUser){
+
+        String sql="Insert into User(userCode , email, password) VALUES ("+u.getUserCode()+","+u.getEmail()+","+u.getPassword()+")";
+
+        /*ContentValues val=new ContentValues();
+        val.put("userCode",u.getUserCode());
+        val.put("email",u.getEmail());
+        val.put("password",u.getPassword());
+        dbUser.insert("User",null,val);*/
+
+        dbUser.execSQL(sql);
+        dbUser.close();
+
+    }
+
+
+
 
 
 
