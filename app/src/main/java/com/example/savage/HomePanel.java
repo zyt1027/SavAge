@@ -31,7 +31,6 @@ public class HomePanel extends AppCompatActivity {
         Toolbar toolbar=findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         userCode=new Intent().getIntExtra("userCode",0);
-
         createActivityTable();
 
 
@@ -49,6 +48,10 @@ public class HomePanel extends AppCompatActivity {
     protected void onStart(){
         super.onStart();
         Fragment_activity appFragment=new Fragment_activity();
+        //passaggio dei parametri tra fragment e activity
+        Bundle b=new Bundle();
+        b.putInt("userCode",userCode);
+        appFragment.setArguments(b);
         fragmentTransaction.add(R.id.homePanel,appFragment);
         fragmentTransaction.commit();
 

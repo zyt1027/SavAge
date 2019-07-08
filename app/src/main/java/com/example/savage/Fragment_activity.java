@@ -1,5 +1,6 @@
 package com.example.savage;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -19,10 +20,16 @@ public class Fragment_activity extends Fragment {
 
     private ArrayList<AlarmActivity> todayActivityList=new ArrayList<>();
     private ListView listViewTodayActivity;
+    private int userCode;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        if(isAdded()){
+            userCode=getArguments().getInt("userCode");
+        }
+
     }
 
 
