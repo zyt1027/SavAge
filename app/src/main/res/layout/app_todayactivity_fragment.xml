@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
@@ -10,24 +11,35 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="70dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="16dp">
+        android:layout_marginBottom="16dp"
+        android:translationZ="4dp"
+        android:background="@drawable/shadowrect"
+        app:cardCornerRadius="4dp"
+        app:cardElevation="4dp">
+
 
         <RelativeLayout
             android:layout_width="395dp"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
-            android:background="#FFFFFF"
-            android:padding="4dp">
+            android:padding="4dp"
+
+           >
 
             <TextView
                 android:id="@+id/titleCardToday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:padding="2dp"
                 android:text="@string/card_today"
                 android:textAlignment="center"
                 android:textAppearance="?attr/textAppearanceHeadline5" />
+
+            <ListView
+                android:id="@+id/listActivityToday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/titleCardToday" />
 
 
         </RelativeLayout>

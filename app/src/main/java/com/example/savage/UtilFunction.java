@@ -3,6 +3,10 @@ package com.example.savage;
 import android.content.Context;
 import android.util.Patterns;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import androidx.appcompat.app.AlertDialog;
 
 public class UtilFunction {
@@ -32,5 +36,17 @@ public class UtilFunction {
             return false;
         }
         return true;
+    }
+
+
+    public static String todayDate(){
+        Calendar c=Calendar.getInstance();
+        int year=c.get(Calendar.YEAR);
+        int month=c.get(Calendar.MONTH)+1;
+        int day=c.get(Calendar.DAY_OF_MONTH);
+        String today=year+"-"+month+"-"+day;
+
+        return today;
+
     }
 }

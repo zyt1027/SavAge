@@ -1,32 +1,23 @@
 package com.example.savage;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 public class Registrazione extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
@@ -91,7 +82,7 @@ public class Registrazione extends AppCompatActivity implements DatePickerDialog
 
                     try {
 
-                        insertDbNewUser(u, DatabaseUserHelper.createDBUser('w', Registrazione.this, 1));
+                        insertDbNewUser(u, DatabaseUserHelper.loadDb('w', Registrazione.this, 1));
 
                     } catch (Exception e) {
                         error = true;

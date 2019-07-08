@@ -40,7 +40,7 @@ public class DatabaseUserHelper extends SQLiteOpenHelper {
     }
 
 
-    public  static  SQLiteDatabase  createDBUser(char flag,Context c,int version){
+    public  static  SQLiteDatabase loadDb(char flag, Context c, int version){
 
         Log.d("version",String.valueOf(version));
         DatabaseUserHelper dbHelper=new DatabaseUserHelper(c,"User_table",version);

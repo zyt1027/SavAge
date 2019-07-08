@@ -42,7 +42,7 @@ public class LogIn extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(UtilFunction.inputControll(email.getText().toString(),password.getText().toString(), LogIn.this)){
-                    SQLiteDatabase db=DatabaseUserHelper.createDBUser('w', LogIn.this,1);
+                    SQLiteDatabase db=DatabaseUserHelper.loadDb('w', LogIn.this,1);
                     Cursor c=db.rawQuery("SELECT * FROM User WHERE email= ?",new String[]{email.getText().toString()});
                     if(c.getCount()==0){
                         new AlertDialog.Builder(LogIn.this)
@@ -84,7 +84,7 @@ public class LogIn extends AppCompatActivity {
 
         /*
         cancel.setOnClickListener((v)->{
-            SQLiteDatabase db=DatabaseUserHelper.createDBUser('w',LogIn.this,1);
+            SQLiteDatabase db=DatabaseUserHelper.loadDb('w',LogIn.this,1);
             db.setVersion(1);
         });*/
 
