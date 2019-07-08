@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+         android:id="@+id/UserInfo"
+         android:title="@string/info_user">
+    </item>
+    <item
+        android:id="@+id/UserStatistiche"
+        android:title="@string/statistica_user">
+
+    </item>
+    <item
+        android:id="@+id/UserParente"
+        android:title="@string/patene_user">
+    </item>
+
+    <item
+        android:id="@+id/UserWidget"
+        android:title="@string/widget_user">
+    </item>
+
+
+</menu>

@@ -15,4 +15,12 @@
     <string name="num_tel_user">N.Telefono</string>
     <string name="repeat_password">Repeat Password</string>
     <string name="cancelled">Cancel</string>
+    <string name="info_user">INFO</string>
+    <string name="statistica_user">STATISTICA</string>
+    <string name="patene_user">PARENTE</string>
+    <string name="widget_user">WIDGET</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="card_today">Oggi</string>
 </resources>

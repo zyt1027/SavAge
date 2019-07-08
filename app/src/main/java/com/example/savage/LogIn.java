@@ -3,26 +3,17 @@ package com.example.savage;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import java.util.Calendar;
-
-public class StartActivity extends AppCompatActivity {
+public class LogIn extends AppCompatActivity {
 
 
     EditText email;
@@ -50,23 +41,35 @@ public class StartActivity extends AppCompatActivity {
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(UtilFunction.inputControll(email.getText().toString(),password.getText().toString(),StartActivity.this)){
-                    SQLiteDatabase db=DatabaseUserHelper.createDBUser('w',StartActivity.this,1);
+                if(UtilFunction.inputControll(email.getText().toString(),password.getText().toString(), LogIn.this)){
+                    SQLiteDatabase db=DatabaseUserHelper.createDBUser('w', LogIn.this,1);
                     Cursor c=db.rawQuery("SELECT * FROM User WHERE email= ?",new String[]{email.getText().toString()});
-                    while(c.moveToNext()){
-                        if(c.getString(c.getColumnIndex("password"))==password.getText().toString()) {
-                            String id = c.getString(c.getColumnIndex("userCode"));
-                            Toast.makeText(StartActivity.this, id, Toast.LENGTH_LONG);
-                            db.close();
-                        }else{
-                           new AlertDialog.Builder(StartActivity.this)
-                                   .setPositiveButton("Ok",null)
-                                   .setMessage("Errore password non correto")
-                                   .create()
-                                   .show();
-                        }
+                    if(c.getCount()==0){
+                        new AlertDialog.Builder(LogIn.this)
+                                .setMessage("Errore utente non esiste")
+                                .setPositiveButton("OK",null)
+                                .create()
+                                .show();
+                    }else {
+                        while(c.moveToNext()){
+                            Log.d("pass",c.getString(c.getColumnIndex("password")));
+                            if(c.getString(c.getColumnIndex("password")).equals(password.getText().toString())) {
+                                String id = c.getString(c.getColumnIndex("userCode"));
+                                db.close();
+                                Intent i=new Intent(LogIn.this,HomePanel.class);
+                                i.putExtra("userCode",id);
+                                startActivity(i);
+                            }else{
+                                new AlertDialog.Builder(LogIn.this)
+                                        .setPositiveButton("Ok",null)
+                                        .setMessage("Errore password non correto")
+                                        .create()
+                                        .show();
+                            }
 
+                        }
                     }
+
 
 
                 }
@@ -75,13 +78,13 @@ public class StartActivity extends AppCompatActivity {
         });
 
         signUp.setOnClickListener(v -> {
-            Intent i=new Intent(StartActivity.this,Registrazione.class);
+            Intent i=new Intent(LogIn.this,Registrazione.class);
             startActivityForResult(i,123);
         });
 
         /*
         cancel.setOnClickListener((v)->{
-            SQLiteDatabase db=DatabaseUserHelper.createDBUser('w',StartActivity.this,1);
+            SQLiteDatabase db=DatabaseUserHelper.createDBUser('w',LogIn.this,1);
             db.setVersion(1);
         });*/
 

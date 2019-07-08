@@ -90,6 +90,7 @@ public class Registrazione extends AppCompatActivity implements DatePickerDialog
                     boolean error = false;
 
                     try {
+
                         insertDbNewUser(u, DatabaseUserHelper.createDBUser('w', Registrazione.this, 1));
 
                     } catch (Exception e) {
@@ -152,7 +153,8 @@ public class Registrazione extends AppCompatActivity implements DatePickerDialog
 
 
 
-    public void insertDbNewUser(User u,SQLiteDatabase dbUser){
+
+    private void insertDbNewUser(User u,SQLiteDatabase dbUser){
 
 
 
