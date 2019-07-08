@@ -7,6 +7,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="395dp"
+        android:id="@+id/cardView_today"
         android:layout_height="239dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="70dp"
@@ -16,6 +17,7 @@
         android:background="@drawable/shadowrect"
         app:cardCornerRadius="4dp"
         app:cardElevation="4dp">
+
 
 
         <RelativeLayout
@@ -36,7 +38,7 @@
                 android:textAppearance="?attr/textAppearanceHeadline5" />
 
             <ListView
-                android:id="@+id/listActivityToday"
+                android:id="@+id/listViewActivityToday"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/titleCardToday" />

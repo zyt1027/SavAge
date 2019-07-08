@@ -4,7 +4,7 @@ import java.util.Date;
 
 class AlarmActivity {
 
-    private Date activityTime;
+    private String activityTime;
     private String description;
     private int priority;
     private int repeatDay;
@@ -12,18 +12,18 @@ class AlarmActivity {
 
     public AlarmActivity(){}
 
-    public AlarmActivity(int priority, Date activityTime,int repeatDay,String description){
+    public AlarmActivity(int priority, String activityTime,int repeatDay,String description){
         this.setActivityTime(activityTime);
         this.setDescription(description);
         this.setPriority(priority);
         this.setRepeatDay(repeatDay);
     }
 
-    public Date getActivityTime() {
+    public String getActivityTime() {
         return activityTime;
     }
 
-    public void setActivityTime(Date activityTime) {
+    public void setActivityTime(String activityTime) {
         this.activityTime = activityTime;
     }
 
