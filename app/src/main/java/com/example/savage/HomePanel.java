@@ -10,12 +10,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 
 public class HomePanel extends AppCompatActivity implements Fragment_addAlarm.OnFragmentInteractionListener {
 
@@ -24,6 +27,7 @@ public class HomePanel extends AppCompatActivity implements Fragment_addAlarm.On
     private FragmentTransaction fragmentTransaction = fragManager.beginTransaction();
     private FloatingActionButton fl;
     private int userCode;
+    private RelativeLayout principalUI;
 
 
 
@@ -37,6 +41,7 @@ public class HomePanel extends AppCompatActivity implements Fragment_addAlarm.On
         userCode=new Intent().getIntExtra("userCode",0);
         createActivityTable();
         fl=findViewById(R.id.add_activity_floating);
+        principalUI=findViewById(R.id.homeActivity);
 
 
     }
@@ -56,7 +61,10 @@ public class HomePanel extends AppCompatActivity implements Fragment_addAlarm.On
         fl.setOnClickListener(v -> {
             Fragment_addAlarm add_fragment=Fragment_addAlarm.newInstance(userCode);
             fragmentTransaction=fragManager.beginTransaction();
-            add_fragment.show(fragManager,"add");
+            fragmentTransaction.add(R.id.fragment_container,add_fragment);
+            principalUI.setVisibility(View.GONE);
+            fragmentTransaction.show(add_fragment);
+            fragmentTransaction.commit();
         });
 
 

@@ -1,5 +1,6 @@
 package com.example.savage;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ import androidx.fragment.app.DialogFragment;
  * Use the {@link Fragment_addAlarm#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_addAlarm extends DialogFragment {
+public class Fragment_addAlarm extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "userCode";
@@ -79,6 +80,7 @@ public class Fragment_addAlarm extends DialogFragment {
         super.onAttach(context);
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
+
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -90,6 +92,8 @@ public class Fragment_addAlarm extends DialogFragment {
         super.onDetach();
         mListener = null;
     }
+
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -105,4 +109,10 @@ public class Fragment_addAlarm extends DialogFragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+
+
+
+
 }

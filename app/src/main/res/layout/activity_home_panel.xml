@@ -7,6 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".HomePanel">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/homeActivity">
+
+
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -86,5 +93,14 @@
             app:tint="@color/loginPageBackgroundColor"/>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_container">
+
+    </RelativeLayout>
 
 </RelativeLayout>
