@@ -6,19 +6,23 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.Toast;
 
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.appcompat.widget.Toolbar;
 
-public class HomePanel extends AppCompatActivity {
+public class HomePanel extends AppCompatActivity implements Fragment_addAlarm.OnFragmentInteractionListener {
 
 
-    FragmentManager fragManager=getFragmentManager();
-    FragmentTransaction fragmentTransaction = fragManager.beginTransaction();
-
+    private FragmentManager fragManager=getFragmentManager();
+    private FragmentTransaction fragmentTransaction = fragManager.beginTransaction();
+    private FloatingActionButton fl;
     private int userCode;
 
 
@@ -32,6 +36,7 @@ public class HomePanel extends AppCompatActivity {
         setSupportActionBar(toolbar);
         userCode=new Intent().getIntExtra("userCode",0);
         createActivityTable();
+        fl=findViewById(R.id.add_activity_floating);
 
 
     }
@@ -47,18 +52,16 @@ public class HomePanel extends AppCompatActivity {
 
     protected void onStart(){
         super.onStart();
-        Fragment_activity appFragment=new Fragment_activity();
-        //passaggio dei parametri tra fragment e activity
-        Bundle b=new Bundle();
-        b.putInt("userCode",userCode);
-        appFragment.setArguments(b);
-        fragmentTransaction.add(R.id.homePanel,appFragment);
-        fragmentTransaction.commit();
 
-
+        fl.setOnClickListener(v -> {
+            Fragment_addAlarm add_fragment=Fragment_addAlarm.newInstance(userCode);
+            fragmentTransaction=fragManager.beginTransaction();
+            add_fragment.show(fragManager,"add");
+        });
 
 
     }
+
 
 
 
@@ -70,4 +73,8 @@ public class HomePanel extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        Toast.makeText(this,"msg:"+uri.getFragment(),Toast.LENGTH_LONG).show();
+    }
 }
